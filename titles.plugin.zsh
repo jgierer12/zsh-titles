@@ -15,7 +15,7 @@ function update_title() {
     print -n "\ek${(%)a}:${(%)2}\e\\"
   elif [[ "$TERM" =~ "screen*" ]]; then
     print -n "\ek${(%)a}:${(%)2}\e\\"
-  elif [[ "$TERM" =~ "xterm*" || "$TERM" = "alacritty" || "$TERM" =~ "st*" ]]; then
+  elif [[ "$TERM" =~ "xterm*|^alacritty$|st*"  ]]; then
     print -n "\e]0;${(%)a}:${(%)2}\a"
   elif [[ "$TERM" =~ "^rxvt-unicode.*" ]]; then
     printf '\33]2;%s:%s\007' ${(%)a} ${(%)2}
@@ -30,7 +30,7 @@ function _zsh_title__precmd() {
 # called just before a command is executed
 function _zsh_title__preexec() {
   local -a cmd
-  
+
   # Escape '\'
   1=${1//\\/\\\\\\\\}
 
